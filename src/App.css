@@ -1,4 +1,5 @@
 /* @import "tailwindcss"; */
+/* color: https://colorhunt.co/palette/f6f5f5d3e0ea1687a7276678 */
 
 #root {
   max-width: 1280px;
@@ -7,7 +8,7 @@
 }
 
 body {
-  background-color: rgb(223, 223, 223);
+  background-color: rgb(246, 245, 245);
   color: rgb(1,1,1);
   /* overflow: hidden; */
   display: flex;
@@ -15,6 +16,7 @@ body {
 }
 
 h1, h6 {
+  color: rgb(39, 102, 120);
   text-align: center;
   margin: 15px;
 }
@@ -25,8 +27,8 @@ h1, h6 {
 }
 
 .todo-wrapper {
-  background: rgb(246, 243, 243);
-  padding: 2%;
+  background: rgb(211, 224, 234);
+  padding: 20px;
   /* width: fit-content; */
   margin-left: auto;
   margin-right: auto;
@@ -34,13 +36,14 @@ h1, h6 {
   max-height: 80vh;
   overflow: auto;
   box-shadow: 0px 5px 7px black;
+  border-radius: 5px;
 }
 
 .todo-input {
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: center;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid rgb(22, 135, 167);
   padding-bottom: 25px;
   margin-bottom: 25px;
 }
@@ -54,8 +57,11 @@ h1, h6 {
 }
 
 .todo-input-item label {
+  color: rgb(39, 102, 120);
+  font-size: x-large;
   font-weight: bold;
   margin-bottom: 10px;
+  
 }
 
 .todo-input-item input {
@@ -63,19 +69,24 @@ h1, h6 {
   border: 1px solid;
   width: 250px;
   border-radius: 5px;
+  border-color: rgb(22, 135, 167);
 }
 
 .todo-input-item input:focus {
-  border-color: rgb(161, 96, 246);
-  outline: 2px solid rgb(161, 96, 246);
+  border-color: rgb(22, 135, 167);
+  outline: 2px solid rgb(22, 135, 167);
+}
+
+input.error {
+  border: 1px solid red;
 }
 
 .primaryBtn {
-  background-color: rgb(161, 96, 246);
-  color: white;
+  background-color: rgb(22, 135, 167);
+  color: rgb(246, 245, 245);
   border: none;
   border-radius: 0px;
-  margin-top: 25px;
+  margin-top: 12px;
   padding: 10px;
   width: 60px;
   cursor: pointer;
@@ -83,22 +94,23 @@ h1, h6 {
 }
 
 .primaryBtn:hover {
-  background-color: rgb(121, 79, 175);
+  background-color: rgb(39, 102, 120);
 }
 
 .secondaryBtn {
-  background-color: rgb(71, 71, 71);
-  color: white;
+  background-color: rgb(246, 245, 245);
+  color: rgb(22, 135, 167);
   border: none;
   border-radius: 0px;
-  margin-top: 25px;
+  /* margin-top: 25px; */
   padding: 10px;
   width: fit-content;
   cursor: pointer;
 }
 
 .active {
-  background-color:rgb(161, 96, 246);
+  background-color:rgb(22, 135, 167);
+  color: rgb(246, 245, 245);
 }
 
 .todo-list {
@@ -107,7 +119,7 @@ h1, h6 {
 }
 
 .todo-list-item {
-  background-color: rgb(223, 223, 223);
+  background-color: rgb(246, 245, 245);
   display: flex;
   justify-content: space-between;
   padding: 25px;
@@ -115,16 +127,37 @@ h1, h6 {
   padding-top: 10px;
   margin-bottom: 10px;
   align-items: center;
-  box-shadow: 0px 3px 5px rgb(43, 42, 42);
+  box-shadow: 0px 3px 5px rgb(39, 102, 120);
+  border-radius: 5px;
+}
+
+.todo-list-item-content p {
+  max-width: 75%;
+  margin: 0;
+}
+
+hr {
+  max-width: 100%;
 }
 
 .btn-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
+}
+
+.btn-group {
+
+}
+
+.todo-counter {
+  color: rgb(39, 102, 120);
 }
 
 .todo-list-item h3 {
   font-size: 25px;
-  color: black;
+  color: rgb(39, 102, 120);
   font-weight: bold;
   margin: 0;
 }
@@ -132,7 +165,7 @@ h1, h6 {
 .todo-list-item p {
   font-size: 14px;
   color: rgb(28, 27, 27);
-  margin-top: 8px;
+  /* margin-top: 8px; */
 }
 
 .icon {
@@ -144,14 +177,18 @@ h1, h6 {
   color:red;
 }
 
-.check-icon {
+.check-icon, .edit-icon {
   font-size: 35px;
   margin-left: 10px;
   cursor: pointer;
 }
 
 .check-icon:hover {
-  color: rgb(6, 196, 108)
+  color: rgb(6, 196, 108);
+}
+
+.edit-icon:hover {
+  color: rgb(235, 153, 20);
 }
 
 .edit__wrapper {
@@ -173,4 +210,8 @@ h1, h6 {
   padding: 10px;
   font-size: 16px;
   width: fit-content;
+}
+
+.footer {
+  color: rgb(39, 102, 120);
 }

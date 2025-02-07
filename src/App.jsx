@@ -20,6 +20,10 @@ function App() {
   const [completedTodos, setCompletedTodos] = useState([])
   const [currentEdit, setCurrentEdit] = useState("")
   const [currentEditedItem, setCurrentEditedItem] = useState("")
+  const [errors, setErrors] = useState({
+    title: false,
+    description: false,
+  });
 
   useEffect(() => {
     let savedTodo = JSON.parse(localStorage.getItem('todolist'))
@@ -45,6 +49,7 @@ function App() {
               value={ newTitle }
               onChange={ (elem) => setNewTitle(elem.target.value) }
               placeholder="What's the task title?" 
+              className={errors.title ? 'error' : ''}
             />
           </div>
           <div className="todo-input-item">
@@ -54,12 +59,26 @@ function App() {
               value={ newDescription }
               onChange={ (elem) => setNewDescription(elem.target.value) }
               placeholder="What's the task description?" 
+              className={errors.description ? 'error' : ''}
             />
           </div>
           <div className="todo-input-item">
             <button 
               type="button" 
-              onClick={ () => handleAddTodo(newTitle, newDescription, allTodos, setTodos) }
+              onClick={ () => {
+                  if (newTitle.trim() === "" || newDescription.trim() === "") {
+                    setErrors({
+                      title: newTitle.trim() === "",
+                      description: newDescription.trim() === "",
+                    });
+                    // alert("Please provide both a title and a description.");
+                    return; 
+                  }
+                  handleAddTodo(newTitle, newDescription, allTodos, setTodos) 
+                  setErrors({ title: false, description: false });
+                  setNewTitle('');
+                  setNewDescription('');
+              } }
               className="primaryBtn">
                 Add
             </button>
@@ -67,21 +86,25 @@ function App() {
         </div>
 
         <div className="btn-area">
-          <button 
-            className={`secondaryBtn ${isCompleteScreen === false && 'active'}`}
-            onClick={() => setIsCompleteScreen (false)}
-          >
-            TODO
-          </button>
-          <button 
-            className={`secondaryBtn ${isCompleteScreen === true && 'active'}`}
-            onClick={() => setIsCompleteScreen (true)}
-          >
-            Completed
-          </button>
+          <div className="btn-group">
+            <button 
+              className={`secondaryBtn ${isCompleteScreen === false && 'active'}`}
+              onClick={() => setIsCompleteScreen (false)}
+            >
+              TODO
+            </button>
+            <button 
+              className={`secondaryBtn ${isCompleteScreen === true && 'active'}`}
+              onClick={() => setIsCompleteScreen (true)}
+            >
+              Completed
+            </button>
+          </div>
+          <h3 className="todo-counter">You have {allTodos.length} todo(s) and {completedTodos.length} completed.</h3>
         </div>
 
         <div className="todo-list">
+          
             {isCompleteScreen === false && allTodos.map((item, index) => {
               if(currentEdit === index) {
                 return(
@@ -106,25 +129,28 @@ function App() {
               } else {
                 return (
                   <div className="todo-list-item" key={ index }>
-                    <div>
+                    <div className="todo-list-item-content">
                       <h3>{ item.title }</h3>
                       <p>{ item.description }</p>
+                      {/* <hr /> */}
+                      <p>Added on: { item.addOn }</p>
+                      {item.editedOn && <p>Edited on: {item.editedOn}</p>}
                     </div>
-                    <div>
+                    <div classname="icon-list">
                       <RiDeleteBin6Line 
                         className="icon" 
                         onClick={() => handleDeleteTodo(index, allTodos, setTodos)}
                         title="Delete?"
                       />
+                      <AiOutlineEdit 
+                        className="edit-icon" 
+                        onClick={() => handleEdit(index, item, setCurrentEdit, setCurrentEditedItem)}
+                        title="Edit?"
+                      />
                       <MdCheckBox 
                         className="check-icon" 
                         onClick={() => handleComplete(index, allTodos, completedTodos, setTodos, setCompletedTodos)}
                         title="Complete?"
-                      />
-                      <AiOutlineEdit 
-                        className="check-icon" 
-                        onClick={() => handleEdit(index, item, setCurrentEdit, setCurrentEditedItem)}
-                        title="Edit?"
                       />
                     </div>
                   </div>
@@ -138,6 +164,7 @@ function App() {
                   <div>
                     <h3>{ item.title }</h3>
                     <p>{ item.description }</p>
+                    <hr />
                     <p>Completed on: { item.completedOn }</p>
                   </div>
                   <div>
